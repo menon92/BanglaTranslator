@@ -1,4 +1,6 @@
 import re
+import os
+import json
 import unicodedata
 import tensorflow as tf
 
@@ -7,7 +9,7 @@ def unicode_to_ascii(s):
   return ''.join(c for c in unicodedata.normalize('NFD', s)
       if unicodedata.category(c) != 'Mn')
 
-def preprocess_sentence(w):
+def clean_seq(w):
   w = unicode_to_ascii(w.lower().strip())
   # creating a space between a word and the punctuation following it
   # eg: "he is a boy." => "he is a boy ."
@@ -20,10 +22,12 @@ def preprocess_sentence(w):
 
   w = w.strip()
 
-  # adding a start and an end token to the sentence
-  # so that the model know when to start and stop predicting.
-  w = '<start> ' + w + ' <end>'
   return w
+
+def add_start_and_end_token_to_seq(sentence):
+    # adding a start and an end token to the sentence
+    # so that the model know when to start and stop predicting.
+    return '<start> ' + sentence + ' <end>'
 
 def texts_to_sequences(texts, tokenizer):
     tensor = tokenizer.texts_to_sequences(texts)
@@ -38,6 +42,20 @@ def get_lang_tokenize(text):
 
     return lang_tokenizer
 
+def save_tokenizer(tokenizer, save_at, file_name):
+    path_to_file = os.path.join(save_at, file_name)
+    with open(path_to_file, 'w', encoding='utf8') as fp:
+        tokenizer_json = tokenizer.to_json()
+        fp.write(json.dumps(tokenizer_json, indent=4, ensure_ascii=False))
+    print("Tokenizer write at:", path_to_file)
+
+def load_tokenizer(path_to_tokenizer_file):
+    print("Loading:", path_to_tokenizer_file)
+    with open(path_to_tokenizer_file, 'r', encoding='utf8') as fp:
+        tokenizer_json = json.load(fp)
+        tokenizer = tf.keras.preprocessing.text.tokenizer_from_json(tokenizer_json)
+    return tokenizer
+ 
 def show_index_to_word_maping(inp_lang_tok, tensor):
     print('-' * 45)
     for t in tensor:

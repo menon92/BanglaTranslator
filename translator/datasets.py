@@ -1,5 +1,5 @@
 import io
-import utils
+from . import utils
 
 class TatoebaDataset():
     def __init__(self, path_to_file, num_data_to_load):
@@ -17,7 +17,8 @@ class TatoebaDataset():
             en, bn, _ = line.split('\t')
             pair = []
             for seq in [en, bn]:
-                seq = utils.preprocess_sentence(seq)
+                seq = utils.clean_seq(seq)
+                seq = utils.add_start_and_end_token_to_seq(seq)
                 pair.append(seq)    
             seq_pairs.append(pair)
         return seq_pairs
@@ -25,7 +26,6 @@ class TatoebaDataset():
     def create_dataset(self):
         lines = self.read_data()
         word_pairs = self.make_sequence_pair(lines)
-        print(word_pairs[:2])
         return zip(*word_pairs)
     
     def load_data(self):

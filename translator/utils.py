@@ -3,6 +3,8 @@ import os
 import json
 import unicodedata
 import tensorflow as tf
+from tensorflow.keras.preprocessing import sequence
+from tensorflow.keras.preprocessing import text
 
 # Converts the unicode file to ascii
 def unicode_to_ascii(s):
@@ -31,13 +33,12 @@ def add_start_and_end_token_to_seq(sentence):
 
 def texts_to_sequences(texts, tokenizer):
     tensor = tokenizer.texts_to_sequences(texts)
-    tensor = tf.keras.preprocessing.sequence.pad_sequences(
-        tensor, padding='post')
+    tensor = sequence.pad_sequences(tensor, padding='post')
     
     return tensor
 
 def get_lang_tokenize(text):
-    lang_tokenizer = tf.keras.preprocessing.text.Tokenizer(filters='')
+    lang_tokenizer = text.Tokenizer(filters='')
     lang_tokenizer.fit_on_texts(text)
 
     return lang_tokenizer

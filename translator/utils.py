@@ -37,9 +37,9 @@ def texts_to_sequences(texts, tokenizer):
     
     return tensor
 
-def get_lang_tokenize(text):
+def get_lang_tokenize(texts):
     lang_tokenizer = text.Tokenizer(filters='')
-    lang_tokenizer.fit_on_texts(text)
+    lang_tokenizer.fit_on_texts(texts)
 
     return lang_tokenizer
 

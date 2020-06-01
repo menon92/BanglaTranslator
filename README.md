@@ -1,7 +1,10 @@
 # BanglaTranslator
 
+## Dataset
+
 ## Pretrain model
 Download pretrain from [checkpoints](https://drive.google.com/file/d/1UNI71ueT0sxfBax6DwW_XPy6YFq0ssTW/view?usp=sharing)
+and put it under `models`
 
 ## Resources
 - [unicode.org](https://home.unicode.org/)

@@ -61,8 +61,10 @@ and extract `training_checkpoints.zip` file under `models` directory
 
 ## Test result
 I test pre-train model and got result like bellow.
+
 ![](./assets/images/test-result.png)
-If you want to test it yourself please check `infer-example.ipynb` and also download pre-train model
+
+* If you want to test it yourself please check `infer-example.ipynb` and also download pre-train model
 
 ## Resources
 - [unicode.org](https://home.unicode.org/)

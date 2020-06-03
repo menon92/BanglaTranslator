@@ -72,3 +72,4 @@ I test pre-train model and got result like bellow.
 - [Teacher forcing](https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c)
 - [Teacher forcing for RNN](https://machinelearningmastery.com/teacher-forcing-for-recurrent-neural-networks/)
 - [Attention machanism](https://blog.floydhub.com/attention-mechanism/)
+- [Neural machine translation with attention](https://www.tensorflow.org/tutorials/text/nmt_with_attention)

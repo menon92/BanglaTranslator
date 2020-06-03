@@ -1,5 +1,5 @@
 # BanglaTranslator
-Translate bangla to english. This model is train based on encoder decoder with attention mechanism. This repository may be a starting point to approaching `bangla machine translation` problem. 
+Translate bangla to english. This model is train based on encoder decoder with attention mechanism. This repository may be a starting point to approaching `bangla machine translation` problem. If this repository helps others people who are working on bangla machine translation then it would be very greatfull for me.
 
 ## Dataset
 I use dataset provide in [http://www.manythings.org/anki/ben-eng.zip](http://www.manythings.org/anki/ben-eng.zip) . This dataset contain english bangla sentence pair in the following format,
@@ -55,9 +55,14 @@ tqdm
 jupyter notebook
 ```
 
-## Pretrain model
+## Pre-train model
 If you want to just test the model then you need to download pretrain model from from [google drive link](https://drive.google.com/file/d/1UNI71ueT0sxfBax6DwW_XPy6YFq0ssTW/view?usp=sharing)
 and extract `training_checkpoints.zip` file under `models` directory
+
+## Test result
+I test pre-train model and got result like bellow.
+![](./assets/images/test-result.png)
+If you want to test it yourself please check `infer-example.ipynb` and also download pre-train model
 
 ## Resources
 - [unicode.org](https://home.unicode.org/)

@@ -56,7 +56,7 @@ jupyter notebook
 ```
 
 ## Pre-train model
-If you want to just test the model then you need to download pretrain model from from [google drive link](https://drive.google.com/file/d/1UNI71ueT0sxfBax6DwW_XPy6YFq0ssTW/view?usp=sharing)
+If you want to just test the model then you need to download pretrain model from from [google drive link ](https://drive.google.com/file/d/1UNI71ueT0sxfBax6DwW_XPy6YFq0ssTW/view?usp=sharing)
 and extract `training_checkpoints.zip` file under `models` directory
 
 ## Test result

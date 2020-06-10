@@ -12,7 +12,7 @@ How is your daughter?	আপনার মেয়ে কেমন আছে?
 
 ## Project structure
 ```
-.
+BanglaTranslator
 ├── assets
 │   └── banglafonts
 │       └── Siyamrupali.ttf

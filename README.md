@@ -67,7 +67,7 @@ I test pre-train model and got result like bellow.
 * If you want to test it yourself please check `infer-example.ipynb` and also download pre-train model
 
 ## Resources
-- [unicode.org](https://home.unicode.org/)
+- [unicode.org](http://www.unicode.org/charts/)
 - [Bangla Alphabet](https://github.com/lifeparticle/Bengali-Alphabet)
 - [Teacher forcing](https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c)
 - [Teacher forcing for RNN](https://machinelearningmastery.com/teacher-forcing-for-recurrent-neural-networks/)

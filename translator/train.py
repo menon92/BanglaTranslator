@@ -1,14 +1,11 @@
 import os
-import time
+
 import tensorflow as tf
-from tqdm import tqdm
 from sklearn.model_selection import train_test_split
+from tqdm import tqdm
 
 from . import config as cfg
-from . import datasets
-from . import utils
-from . import models
-
+from . import datasets, models, utils
 
 loss_object = tf.keras.losses.SparseCategoricalCrossentropy(
     from_logits=True, reduction='none')
@@ -65,7 +62,7 @@ def run():
         file_name='target_language_tokenizer.json')  
 
     # Creating training and validation sets using an 80-20 split
-    input_train, input_val, target_train, target_val = \
+    input_train, _input_val, target_train, _target_val = \
         train_test_split(input_tensor, target_tensor, test_size=0.2)
 
     # set training params
@@ -99,7 +96,7 @@ def run():
         checkpoint.restore(tf.train.latest_checkpoint(checkpoint_dir))
 
     for epoch in range(cfg.EPOCHS):
-        print("Epoch {} / {}".format(epoch, cfg.EPOCHS))
+        print(f"Epoch {epoch} / {cfg.EPOCHS}")
         pbar = tqdm(dataset.take(steps_per_epoch), ascii=True)
         
         total_loss = 0
@@ -114,13 +111,13 @@ def run():
             total_loss += batch_loss
 
             pbar.set_description(
-                "Step - {} / {} - batch loss - {:.4f} - "
-                    .format(steps_per_epoch, step+1, batch_loss.numpy()))
+                f"Step - {steps_per_epoch} / {step+1} - batch loss - {batch_loss.numpy():.4f} - "
+                    )
         
         # saving (checkpoint) the model every 2 epochs
         if (epoch + 1) % 2 == 0:
             checkpoint.save(file_prefix=checkpoint_prefix)
-        print('Epoch loss - {:.4f}'.format(total_loss / steps_per_epoch))
+        print(f'Epoch loss - {total_loss / steps_per_epoch:.4f}')
 
 if __name__ == "__main__":
     run()

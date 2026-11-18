@@ -1,18 +1,21 @@
-import re
-import os
 import json
+import os
+import re
 import unicodedata
+
 import tensorflow as tf
-from tensorflow.keras.preprocessing import sequence
-from tensorflow.keras.preprocessing import text
+from tensorflow.keras.preprocessing import sequence, text
+
 
 # Converts the unicode file to ascii
-def unicode_to_ascii(s):
-  return ''.join(c for c in unicodedata.normalize('NFD', s)
-      if unicodedata.category(c) != 'Mn')
+def unicode_to_ascii(s, keep_marks=False):
+  # keep_marks=True keeps Bengali combining marks (vowel signs, hasanta, nukta);
+  # stripping them merges different Bangla words into one token.
+  return ''.join(c for c in unicodedata.normalize('NFC' if keep_marks else 'NFD', s)
+      if keep_marks or unicodedata.category(c) != 'Mn')
 
-def clean_seq(w):
-  w = unicode_to_ascii(w.lower().strip())
+def clean_seq(w, keep_marks=False):
+  w = unicode_to_ascii(w.lower().strip(), keep_marks)
   # creating a space between a word and the punctuation following it
   # eg: "he is a boy." => "he is a boy ."
   # Reference:- https://stackoverflow.com/questions/3645931/python-padding-punctuation-with-white-spaces-keeping-punctuation
@@ -61,5 +64,4 @@ def show_index_to_word_maping(inp_lang_tok, tensor):
     print('-' * 45)
     for t in tensor:
         if t != 0:
-            print("{:<6} map with {}".format(
-                t, inp_lang_tok.index_word[t]))
+            print(f"{t:<6} map with {inp_lang_tok.index_word[t]}")

@@ -1,14 +1,15 @@
-import io
+
 from . import utils
 
-class TatoebaDataset():
+
+class TatoebaDataset:
     def __init__(self, path_to_file, num_data_to_load):
         self.path_to_file = path_to_file
         self.num_data_to_load = num_data_to_load
 
     def read_data(self):
-        lines = io.open(
-            self.path_to_file, encoding='UTF-8').read().strip().split('\n')
+        with open(self.path_to_file, encoding='UTF-8') as f:
+            lines = f.read().strip().split('\n')
         return lines
 
     def make_sequence_pair(self, lines):

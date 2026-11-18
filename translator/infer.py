@@ -1,19 +1,17 @@
-from . import utils
-from . import models
-
 import numpy as np
 import tensorflow as tf
+from matplotlib import font_manager as fm
+from matplotlib import pyplot as plt
+from matplotlib import ticker
 from tensorflow.keras.preprocessing import sequence
 
-from matplotlib import ticker
-from matplotlib import pyplot as plt
-from matplotlib import font_manager as fm
+from . import utils
 
 FONT_NAME = 'assets/banglafonts/Siyamrupali.ttf'
 
-class Infer():
+class Infer:
     def __init__(self, input_language_tokenizer, target_language_tokenizer,
-                max_length_input, max_length_target, encoder, decoder, units):
+                max_length_input, max_length_target, encoder, decoder, units, keep_marks=False):
         self.input_language_tokenizer = input_language_tokenizer
         self.target_language_tokenizer = target_language_tokenizer
         self.max_length_input = max_length_input
@@ -21,14 +19,18 @@ class Infer():
         self.encoder = encoder
         self.decoder = decoder
         self.units = units
+        self.keep_marks = keep_marks
     
     def preprocess(self, sentence):
         # clean and pad sequece
-        sentence = utils.clean_seq(sentence)
+        sentence = utils.clean_seq(sentence, self.keep_marks)
         sentence = utils.add_start_and_end_token_to_seq(sentence)
         
-        inputs = [
-            self.input_language_tokenizer.word_index[i] for i in sentence.split(' ')]
+        word_index = self.input_language_tokenizer.word_index
+        unknown = [w for w in sentence.split(' ') if w not in word_index]
+        if unknown:
+            raise ValueError(f'Words not in the input vocabulary: {unknown}')
+        inputs = [word_index[i] for i in sentence.split(' ')]
         inputs = sequence.pad_sequences(
             [inputs], maxlen=self.max_length_input,padding='post')
         tensor = tf.convert_to_tensor(inputs)

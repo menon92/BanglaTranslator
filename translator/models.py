@@ -1,8 +1,9 @@
 import tensorflow as tf
 
+
 class Encoder(tf.keras.Model):
     def __init__(self, vocab_size, embedding_dim, enc_units, batch_sz):
-        super(Encoder, self).__init__()
+        super().__init__()
         self.batch_sz = batch_sz
         self.enc_units = enc_units
         self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
@@ -21,7 +22,7 @@ class Encoder(tf.keras.Model):
 
 class BahdanauAttention(tf.keras.layers.Layer):
     def __init__(self, units):
-        super(BahdanauAttention, self).__init__()
+        super().__init__()
         self.W1 = tf.keras.layers.Dense(units)
         self.W2 = tf.keras.layers.Dense(units)
         self.V = tf.keras.layers.Dense(1)
@@ -50,7 +51,7 @@ class BahdanauAttention(tf.keras.layers.Layer):
 
 class Decoder(tf.keras.Model):
     def __init__(self, vocab_size, embedding_dim, dec_units, batch_sz):
-        super(Decoder, self).__init__()
+        super().__init__()
         self.batch_sz = batch_sz
         self.dec_units = dec_units
         self.embedding = tf.keras.layers.Embedding(vocab_size, embedding_dim)
